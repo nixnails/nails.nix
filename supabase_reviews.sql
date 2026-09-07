@@ -11,7 +11,6 @@ create table if not exists public.reviews (
 
 alter table public.reviews enable row level security;
 
--- Anyone can read reviews that are displayed on the website.
 drop policy if exists "Public can read reviews" on public.reviews;
 create policy "Public can read reviews"
 on public.reviews
@@ -19,7 +18,6 @@ for select
 to anon, authenticated
 using (true);
 
--- Customers can submit a review from the website.
 drop policy if exists "Public can submit reviews" on public.reviews;
 create policy "Public can submit reviews"
 on public.reviews
@@ -33,5 +31,3 @@ with check (
 
 grant select on public.reviews to anon, authenticated;
 grant insert on public.reviews to anon, authenticated;
-
-after table public.reviews enable row level security;
